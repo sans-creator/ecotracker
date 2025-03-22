@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTrack - Services</title>
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --secondary: #388e3c;
+            --accent: #81c784;
+            --light: #e8f5e9;
+            --dark: #1b5e20;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-links a.active {
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .nav-btn {
+            background-color: white;
+            color: var(--primary);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background-color: var(--light);
+        }
+        
+        .page-header {
+            background-color: var(--light);
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-header h1 {
+            color: var(--dark);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .service-img {
+            height: 200px;
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-content h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .service-content p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark);
+        }
+        
+        .cta-section {
+            background-color: var(--secondary);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .btn-light {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .btn-light:hover {
+            background-color: var(--light);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <div class="logo">EcoTrack</div>
+                </div>
+                <div class="nav-links">
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="services.html" class="active">Services</a>
+                    <a href="schedule.html">Schedule</a>
+                    <a href="reports.html">Reports</a>
+                    <a href="https://en.wikipedia.org/">Education</a>
+                </div>
+                <button class="nav-btn">Login</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our Waste Management Services</h1>
+            <p>Comprehensive solutions for all your waste management needs</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <div class="service-grid">
+                <div class="service-card">
+                    <div class="service-img">🗑️</div>
+                    <div class="service-content">
+                        <h3>Regular Waste Collection</h3>
+                        <p>Weekly collection of household waste with convenient scheduling options and real-time tracking.</p>
+                        <a href="regular-waste.html" class="btn">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">♻️</div>
+                    <div class="service-content">
+                        <h3>Recycling Programs</h3>
+                        <p>Comprehensive recycling services for paper, plastic, glass, metal, and electronics with sorting guides.</p>
+                        <a href="recycling.html" class="btn">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">🌱</div>
+                    <div class="service-content">
+                        <h3>Green Waste Management</h3>
+                        <p>Specialized collection and processing of yard waste, garden trimmings, and compostable materials.</p>
+                        <a href="green-waste.html" class="btn">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">🏢</div>
+                    <div class="service-content">
+                        <h3>Commercial Services</h3>
+                        <p>Tailored waste management solutions for businesses of all sizes with customized collection schedules.</p>
+                        <a href="commercial.html" class="btn">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">⚠️</div>
+                    <div class="service-content">
+                        <h3>Hazardous Waste Disposal</h3>
+                        <p>Safe and regulated disposal of hazardous materials like chemicals, batteries, and medical waste.</p>
+                        <a href="hazardous.html" class="btn">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">🚚</div>
+                    <div class="service-content">
+                        <h3>Bulk Item Collection</h3>
+                        <p>Special pickup services for large items like furniture, appliances, and construction debris.</p>
+                        <a href="bulk-items.html" class="btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Start Managing Your Waste Smarter?</h2>
+            <p>Join thousands of satisfied customers who have streamlined their waste management with EcoTrack's innovative solutions.</p>
+            <a href="signup.html" class="btn btn-light">Sign Up Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>EcoTrack</h3>
+                    <p>Smart waste management solutions for a cleaner, more sustainable future.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="regular-waste.html">Waste Collection</a></li>
+                        <li><a href="recycling.html">Recycling Programs</a></li>
+                        <li><a href="commercial.html">Commercial Services</a></li>
+                        <li><a href="hazardous.html">Special Disposal</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="recycling-guide.html">Recycling Guide</a></li>
+                        <li><a href="waste-reduction.html">Waste Reduction Tips</a></li>
+                        <li><a href="education.html">Educational Materials</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="support.html">Support Center</a></li>
+                        <li><a href="mailto:info@ecotrack.example">Email Us</a></li>
+                        <li><a href="tel:5551234567">Call: (555) 123-4567</a></li>
+                        <li><a href="report.html">Report an Issue</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 EcoTrack - Smart Waste Management</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="sans.js"></script>
+    <script>
+        // Check if user is logged in and update the login/logout button
+        const loginBtn = document.querySelector('.nav-btn');
+        
+        // This is a mock check - in a real app, you would verify session/local storage
+        const isLoggedIn = localStorage.getItem('ecotr

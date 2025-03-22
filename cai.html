@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTrack - Waste Management System</title>
+    
+    <style >
+        :root {
+            --primary: #2e7d32;
+            --secondary: #388e3c;
+            --accent: #81c784;
+            --light: #e8f5e9;
+            --dark: #1b5e20;
+            --error: #f44336;
+            --warning: #ff9800;
+            --info: #2196f3;
+            --success: #4caf50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-btn {
+            background-color: white;
+            color: var(--primary);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background-color: var(--light);
+        }
+        
+        .hero {
+            background-color: var(--light);
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark);
+        }
+        
+        .stats-bar {
+            background-color: var(--secondary);
+            color: white;
+            padding: 1rem 0;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .stat-item h3 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .features {
+            padding: 3rem 0;
+        }
+        
+        .features h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 2rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            background-color: var(--light);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .dashboard {
+            padding: 2rem 0;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+        }
+        
+        .sidebar {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            height: fit-content;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu a {
+            display: block;
+            padding: 10px;
+            color: #555;
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: var(--light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+        
+        .main-content {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .card p {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        thead {
+            background-color: var(--light);
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .badge-pending {
+            background-color: var(--warning);
+            color: white;
+        }
+        
+        .badge-complete {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .badge-processing {
+            background-color: var(--info);
+            color: white;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .system-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .system-link:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <div class="logo">EcoTrack</div>
+                </div>
+                <div class="nav-links">
+                    <a href="#dashboard">Dashboard</a>
+                    <a href="#services">Services</a>
+                    <a href="#schedule">Schedule</a>
+                    <a href="reports.html">Reports</a>
+                    <a href="education.html">Education</a>
+                </div>
+                <button class="nav-btn">Login</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Smart Waste Management Solutions</h1>
+            <p>Helping communities track, manage, and reduce waste with intelligent digital tools and real-time analytics</p>
+            <a href="#schedule" class="btn">Schedule Pickup</a>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <h3>4+</h3>
+                    <p>Kg Recycled</p>
+                </div>
+                <div class="stat-item">
+                    <h3>95%</h3>
+                    <p>On-time Collection</p>
+                </div>
+                <div class="stat-item">
+                    <h3>25%</h3>
+                    <p>Waste Reduction</p>
+                </div>
+                <div class="stat-item">
+                    <h3>10+</h3>
+                    <p>Active Users</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>Features & Services</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🗓️</div>
+                    <h3>Pickup Scheduling</h3>
+                    <p>Easily schedule regular or one-time waste collection services through our intuitive interface.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Waste Analytics</h3>
+                    <p>Track your waste production and recycling rates with detailed analytics and actionable insights.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Smart Alerts</h3>
+                    <p>Receive timely notifications about collection schedules, service changes, and recycling tips.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">♻️</div>
+                    <h3>Recycling Guides</h3>
+                    <p>Access comprehensive guides on proper waste sorting and recycling best practices.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Access</h3>
+                    <p>Manage your waste services on the go with our responsive mobile application.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Custom Reports</h3>
+                    <p>Generate detailed reports on waste management activities for compliance and improvement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard" id="dashboard">
+        <div class="container">
+            <div class="dashboard-grid">
+                <div class="sidebar">
+                    <h3>Dashboard</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="#" class="active">Overview</a></li>
+                        <li><a href="#">Schedule Pickup</a></li>
+                        <li><a href="#">Recycling Status</a></li>
+                        <li><a href="#">Waste Reports</a></li>
+                        <li><a href="#">Payment History</a></li>
+                        <li><a href="#">Support Tickets</a></li>
+                        <li><a href="#">Account Settings</a></li>
+                    </ul>
+                </div>
+                <div class="main-content">
+                    <div class="dashboard-header">
+                        <h2>Waste Management Dashboard</h2>
+                        <div>
+                            <button class="btn">Export Report</button>
+                        </div>
+                    </div>
+                    <div class="card-grid">
+                        <div class="card">
+                            <h3>Total Waste</h3>
+                            <p>5 kg</p>
+                        </div>
+                        <div class="card">
+                            <h3>Recycled</h3>
+                            <p>2 kg</p>
+                        </div>
+                        <div class="card">
+                            <h3>Next Pickup</h3>
+                            <p>Mar 15</p>
+                        </div>
+                        <div class="card">
+                            <h3>Diversion Rate</h3>
+                            <p>49%</p>
+                        </div>
+                    </div>
+                    <h3>Recent Pickups</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Weight</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Mar 7, 2025</td>
+                                    <td>Regular Waste</td>
+                                    <td>2kg</td>
+                                    <td><span class="badge badge-complete">Complete</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mar 5, 2025</td>
+                                    <td>Recycling</td>
+                                    <td>10 kg</td>
+                                    <td><span class="badge badge-complete">Complete</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mar 1, 2025</td>
+                                    <td>Regular Waste</td>
+                                    <td>5 kg</td>
+                                    <td><span class="badge badge-complete">Complete</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Feb 28, 2025</td>
+                                    <td>Green Waste</td>
+                                    <td>15 kg</td>
+                                    <td><span class="badge badge-complete">Complete</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Feb 25, 2025</td>
+                                    <td>Recycling</td>
+                                    <td>20 kg</td>
+                                    <td><span class="badge badge-complete">Complete</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="features">
+        <div class="container">
+            <h2>Schedule a Pickup</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Request Form</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="pickup-type">Waste Type</label>
+                            <select id="pickup-type">
+                                <option value="regular">Regular Waste</option>
+                                <option value="recycling">Recycling</option>
+                                <option value="green">Green Waste</option>
+                                <option value="bulk">Bulk Items</option>
+                                <option value="hazardous">Hazardous Materials</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pickup-date">Pickup Date</label>
+                            <input type="date" id="pickup-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="pickup-time">Preferred Time</label>
+                            <select id="pickup-time">
+                                <option value="morning">Morning (8am - 12pm)</option>
+                                <option value="afternoon">Afternoon (12pm - 4pm)</option>
+                                <option value="evening">Evening (4pm - 8pm)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pickup-notes">Special Instructions</label>
+                            <textarea id="pickup-notes" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn">Schedule Pickup</button>
+                    </form>
+                </div>
+                <div class="feature-card">
+                    <h3>Current Schedule</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Mar 15, 2025</td>
+                                    <td>Regular Waste</td>
+                                    <td><span class="badge badge-pending">Pending</span></td>
+                                    <td><a href="#">Cancel</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Mar 15, 2025</td>
+                                    <td>Recycling</td>
+                                    <td><span class="badge badge-pending">Pending</span></td>
+                                    <td><a href="#">Cancel</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Mar 22, 2025</td>
+                                    <td>Regular Waste</td>
+                                    <td><span class="badge badge-pending">Pending</span></td>
+                                    <td><a href="#">Cancel</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Mar 28, 2025</td>
+                                    <td>Green Waste</td>
+                                    <td><span class="badge badge-pending">Pending</span></td>
+                                    <td><a href="#">Cancel</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>EcoTrack</h3>
+                    <p>Get help for your waste.</p>
+                    <a href="https://9000-idx-caiproject-1741079069423.cluster-e3wv6awer5h7kvayyfoein2u4a.cloudworkstations.dev/?embedded=0&monospaceUid=92647" class="system-link">get help</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Waste Collection</a></li>
+                        <li><a href="#">Recycling Programs</a></li>
+                        <li><a href="#">Commercial Services</a></li>
+                        <li><a href="#">Special Disposal</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Recycling Guide</a></li>
+                        <li><a href="#">Waste Reduction Tips</a></li>
+                        <li><a href="#">Educational Materials</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Support Center</a></li>
+                        <li><a href="#">Email Us</a></li>
+                        <li><a href="#">Call: (555) 123-4567</a></li>
+                        <li><a href="#">Report an Issue</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; created with &#9825;</p>
+            </div>
+        </div>
+    </footer>
+    <script src="sans.js"></script>
+</body>
+</html> 

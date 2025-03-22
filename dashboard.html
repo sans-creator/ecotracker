@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTrack - Dashboard</title>
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --secondary: #388e3c;
+            --accent: #81c784;
+            --light: #e8f5e9;
+            --dark: #1b5e20;
+            --error: #f44336;
+            --warning: #ff9800;
+            --info: #2196f3;
+            --success: #4caf50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-btn {
+            background-color: white;
+            color: var(--primary);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background-color: var(--light);
+        }
+        
+        .dashboard {
+            padding: 2rem 0;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+        }
+        
+        .sidebar {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            height: fit-content;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu a {
+            display: block;
+            padding: 10px;
+            color: #555;
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: var(--light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+        
+        .main-content {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .card p {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        thead {
+            background-color: var(--light);
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .badge-pending {
+            background-color: var(--warning);
+            color: white;
+        }
+        
+        .badge-complete {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .badge-processing {
+            background-color: var(--info);
+            color: white;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 1rem 0;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <div class="logo">EcoTrack</div>
+                </div>
+                <div class="nav-links">
+                    <a href="dashboard.html" class="active">Dashboard</a>
+                    <a href="services.html">Services</a>
+                    <a href="schedule.html">Schedule</a>
+                    <a href="reports.html">Reports</a>
+                    <a href="https://en.wikipedia.org/">Education</a>
+                </div>
+                <button class="nav-btn">Logout</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard">
+        <div class="container">
+            <div class="dashboard-grid">
+                <div class="sidebar">
+                    <h3>Dashboard</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="#" class="active">Overview</a></li>
+                        <li><a href="#">Schedule Pickup</a></li>
+                        <li><a href="#">Recycling Status</a></li>
+                        <li><a href="#">Waste Reports</a></li>
+                        <li><a href="#">Payment History</a></li>
+                        <li><a href="#">Support Tickets</a></li>
+                        <li><a href="#">Account Settings</a></li>
+                    </ul>
+                </div>
+                <div class="main-content">
+                    <div class="dashboard-header">
+                        <h2>Waste Management Dashboard</h2>
+                        <div>
+                            <button class="btn">Export Report</button>
+                        </div>
+                    </div>
+                    <div class="card-grid">
+                        <div class="card">
+                            <h3>Total Waste</h3>
+                            <p>52 kg</p>
+                        </div>
+                        <div class="card">
+                            <h3>Recycled</h3>
+                            <p>32 kg</p>
+                        </div>
+                        <div class="card">
+                            <h3>Next Pickup</h3>
+                            <p>Mar 15</p>
+                        </div>
+                        <div class="card">
+                            <h3>Diversion Rate</h3>
+                            <p>61%</p>
+                        </div>
+                    </div>
+                    <h3>Recent Pickups</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Weight</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Mar 7, 2025</td>
+                                    <td>Regular Waste</td>
+                                    <td>2kg</td>
+                                    <td><span class="badge badge-complete">Complete</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mar 5, 2025</td>
+                                    <td>Recycling</td>
+                                    <td>10 kg</td>
+                                    <td><span class="badge badge-complete">Complete</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mar 1, 2025</td>
+                                    <td>Regular Waste</td>
+                                    <td>5 kg</td>
+                                    <td><span class="badge badge-complete">Complete</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Feb 28, 2025</td>
+                                    <td>Green Waste</td>
+                                    <td>15 kg</td>
+                                    <td><span class="badge badge-complete">Complete</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Feb 25, 2025</td>
+                                    <td>Recycling</td>
+                                    <td>20 kg</td>
+                                    <td><span class="badge badge-complete">Complete</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 EcoTrack - Smart Waste Management</p>
+        </div>
+    </footer>
+
+    <script src="sans.js"></script>
+    <script>
+        // Dashboard-specific JavaScript
+        document.querySelector('.nav-btn').addEventListener('click', function() {
+            // Handle logout
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
